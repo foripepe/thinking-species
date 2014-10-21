@@ -11,7 +11,7 @@ var mainlogic = (function(){
      * Booting.
      */
     function booting() {
-        //document.write('Booting');
+
     }
 
     window.addEventListener('load', booting, false);
