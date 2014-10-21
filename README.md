@@ -1,2 +1,2 @@
-thinking-species
+Thinking Species
 ================
