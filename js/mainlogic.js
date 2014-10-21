@@ -9,7 +9,7 @@
 var mainlogic = (function(){
 
     // Main states.
-    var mainStates = {'loading': 0, 'playing': 1, 'movepage': 2, 'solve': 3, 'shuffle': 4, 'movehistory' : 5};
+    var mainStates = {'loading': 0, 'teaching': 1};
     var mainState = mainStates.loading;
 
     // Window size and aspect.
@@ -36,16 +36,65 @@ var mainlogic = (function(){
      */
     function initializeMenu() {
         addMenuItem({
-            id: 'buttonblue',
+            id: 'output',
             x: 0,
-            y: 250,
-            width: 25,
-            height: 25,
-            pic: imageObj['input-blue'].src,
+            y: 20,
+            width: 200,
+            height: 200,
+            pic: imageObj['output-lie'].src,
             onrelease: function () {
-                console.warn(1);
+                console.warn('output');
             }
         });
+        addMenuItem({
+            id: 'emotion',
+            x: 220,
+            y: 95,
+            width: 50,
+            height: 50,
+            pic: imageObj['emotions-neutral'].src,
+            onrelease: function () {
+                console.warn('emotion');
+            }
+        });
+        addMenuItem({
+            id: 'feedback-good',
+            x: 340,
+            y: 55,
+            width: 50,
+            height: 50,
+            pic: imageObj['feedbacks-good'].src,
+            onrelease: function () {
+                console.warn('feedbacks-good');
+            }
+        });
+        addMenuItem({
+            id: 'feedback-bad',
+            x: 340,
+            y: 135,
+            width: 50,
+            height: 50,
+            pic: imageObj['feedbacks-bad'].src,
+            onrelease: function () {
+                console.warn('feedbacks-bad');
+            }
+        });
+
+        for (var i = 0; i < 7; i++) {
+            (function(pos){
+                addMenuItem({
+                    id: 'button' + pos,
+                    x: 60 * pos,
+                    y: 250,
+                    width: 25,
+                    height: 25,
+                    pic: imageObj['input-' + pos].src,
+                    onrelease: function () {
+                        console.warn('input', pos);
+                    }
+                });
+            })(i);
+        }
     }
 
     /**
@@ -69,7 +118,7 @@ var mainlogic = (function(){
             document.getElementById( menuObject.id ).remove();
         }
 
-        var thisOpacity = 0.7;
+        var thisOpacity = 0.9;
 
         var menuContainer = document.createElement('img');
         menuContainer.id = menuObject.id;
@@ -208,20 +257,20 @@ var mainlogic = (function(){
         imageObj['output-stand'] = new Image();
         imageObj['output-stand'].src = 'pics/output/stand.png';
 
-        imageObj['input-blue'] = new Image();
-        imageObj['input-blue'].src = 'pics/input/blue.jpg';
-        imageObj['input-gray'] = new Image();
-        imageObj['input-gray'].src = 'pics/input/gray.png';
-        imageObj['input-green'] = new Image();
-        imageObj['input-green'].src = 'pics/input/green.jpg';
-        imageObj['input-orange'] = new Image();
-        imageObj['input-orange'].src = 'pics/input/orange.jpg';
-        imageObj['input-red'] = new Image();
-        imageObj['input-red'].src = 'pics/input/red.jpg';
-        imageObj['input-white'] = new Image();
-        imageObj['input-white'].src = 'pics/input/white.jpg';
-        imageObj['input-yellow'] = new Image();
-        imageObj['input-yellow'].src = 'pics/input/yellow.jpg';
+        imageObj['input-0'] = new Image();
+        imageObj['input-0'].src = 'pics/input/blue.jpg';
+        imageObj['input-1'] = new Image();
+        imageObj['input-1'].src = 'pics/input/gray.png';
+        imageObj['input-2'] = new Image();
+        imageObj['input-2'].src = 'pics/input/green.jpg';
+        imageObj['input-3'] = new Image();
+        imageObj['input-3'].src = 'pics/input/orange.jpg';
+        imageObj['input-4'] = new Image();
+        imageObj['input-4'].src = 'pics/input/red.jpg';
+        imageObj['input-5'] = new Image();
+        imageObj['input-5'].src = 'pics/input/white.jpg';
+        imageObj['input-6'] = new Image();
+        imageObj['input-6'].src = 'pics/input/yellow.jpg';
 
         imageObj['emotions-afraid'] = new Image();
         imageObj['emotions-afraid'].src = 'pics/emotions/afraid.png';
