@@ -41,7 +41,7 @@ var mainlogic = (function(){
             y: 250,
             width: 25,
             height: 25,
-            pic: imageObj['blue'].src,
+            pic: imageObj['input-blue'].src,
             onrelease: function () {
                 console.warn(1);
             }
@@ -193,35 +193,57 @@ var mainlogic = (function(){
 
         // Preload all the images.
         imageObj = [];
-        imageObj['back'] = new Image();
-        imageObj['back'].src = 'pics/back.png';
-        imageObj['eat'] = new Image();
-        imageObj['eat'].src = 'pics/eat.png';
-        imageObj['empty'] = new Image();
-        imageObj['empty'].src = 'pics/empty.png';
-        imageObj['lie'] = new Image();
-        imageObj['lie'].src = 'pics/lie.png';
-        imageObj['pee'] = new Image();
-        imageObj['pee'].src = 'pics/pee.png';
-        imageObj['sit'] = new Image();
-        imageObj['sit'].src = 'pics/sit.png';
-        imageObj['stand'] = new Image();
-        imageObj['stand'].src = 'pics/stand.png';
+        imageObj['output-back'] = new Image();
+        imageObj['output-back'].src = 'pics/output/back.png';
+        imageObj['output-eat'] = new Image();
+        imageObj['output-eat'].src = 'pics/output/eat.png';
+        imageObj['output-empty'] = new Image();
+        imageObj['output-empty'].src = 'pics/output/empty.png';
+        imageObj['output-lie'] = new Image();
+        imageObj['output-lie'].src = 'pics/output/lie.png';
+        imageObj['output-pee'] = new Image();
+        imageObj['output-pee'].src = 'pics/output/pee.png';
+        imageObj['output-sit'] = new Image();
+        imageObj['output-sit'].src = 'pics/output/sit.png';
+        imageObj['output-stand'] = new Image();
+        imageObj['output-stand'].src = 'pics/output/stand.png';
 
-        imageObj['blue'] = new Image();
-        imageObj['blue'].src = 'pics/blue.jpg';
-        imageObj['gray'] = new Image();
-        imageObj['gray'].src = 'pics/gray.png';
-        imageObj['green'] = new Image();
-        imageObj['green'].src = 'pics/green.jpg';
-        imageObj['orange'] = new Image();
-        imageObj['orange'].src = 'pics/orange.jpg';
-        imageObj['red'] = new Image();
-        imageObj['red'].src = 'pics/red.jpg';
-        imageObj['white'] = new Image();
-        imageObj['white'].src = 'pics/white.jpg';
-        imageObj['yellow'] = new Image();
-        imageObj['yellow'].src = 'pics/yellow.jpg';
+        imageObj['input-blue'] = new Image();
+        imageObj['input-blue'].src = 'pics/input/blue.jpg';
+        imageObj['input-gray'] = new Image();
+        imageObj['input-gray'].src = 'pics/input/gray.png';
+        imageObj['input-green'] = new Image();
+        imageObj['input-green'].src = 'pics/input/green.jpg';
+        imageObj['input-orange'] = new Image();
+        imageObj['input-orange'].src = 'pics/input/orange.jpg';
+        imageObj['input-red'] = new Image();
+        imageObj['input-red'].src = 'pics/input/red.jpg';
+        imageObj['input-white'] = new Image();
+        imageObj['input-white'].src = 'pics/input/white.jpg';
+        imageObj['input-yellow'] = new Image();
+        imageObj['input-yellow'].src = 'pics/input/yellow.jpg';
+
+        imageObj['emotions-afraid'] = new Image();
+        imageObj['emotions-afraid'].src = 'pics/emotions/afraid.png';
+        imageObj['emotions-angry'] = new Image();
+        imageObj['emotions-angry'].src = 'pics/emotions/angry.png';
+        imageObj['emotions-cry'] = new Image();
+        imageObj['emotions-cry'].src = 'pics/emotions/cry.png';
+        imageObj['emotions-happy'] = new Image();
+        imageObj['emotions-happy'].src = 'pics/emotions/happy.png';
+        imageObj['emotions-laugh'] = new Image();
+        imageObj['emotions-laugh'].src = 'pics/emotions/laugh.png';
+        imageObj['emotions-neutral'] = new Image();
+        imageObj['emotions-neutral'].src = 'pics/emotions/neutral.png';
+        imageObj['emotions-sad'] = new Image();
+        imageObj['emotions-sad'].src = 'pics/emotions/sad.png';
+        imageObj['emotions-suprised'] = new Image();
+        imageObj['emotions-suprised'].src = 'pics/emotions/suprised.png';
+
+        imageObj['feedbacks-bad'] = new Image();
+        imageObj['feedbacks-bad'].src = 'pics/feedbacks/bad.png';
+        imageObj['feedbacks-good'] = new Image();
+        imageObj['feedbacks-good'].src = 'pics/feedbacks/good.png';
 
         imageObj['background'] = new Image();
         imageObj['background'].src = 'pics/galaxysmall.jpg';
