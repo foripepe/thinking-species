@@ -17,6 +17,9 @@ var mainlogic = (function(){
     var windowHalfY = window.innerHeight / 2;
     var xBiggerY = (windowHalfX > windowHalfY);
 
+    var outputPics = [];
+    var emotionPics = [];
+
     /**
      * Booting.
      */
@@ -28,6 +31,20 @@ var mainlogic = (function(){
         initializeMenu();
 
         initializeCallbacks();
+
+        outputPics[0] = imageObj['output-lie'].src;
+        outputPics[1] = imageObj['output-away'].src;
+        outputPics[2] = imageObj['output-back'].src;
+        outputPics[3] = imageObj['output-eat'].src;
+        outputPics[4] = imageObj['output-pee'].src;
+        outputPics[5] = imageObj['output-sit'].src;
+        outputPics[6] = imageObj['output-stand'].src;
+
+        emotionPics[2] = imageObj['emotions-laugh'].src;
+        emotionPics[1] = imageObj['emotions-happy'].src;
+        emotionPics[0] = imageObj['emotions-neutral'].src;
+        emotionPics[-1] = imageObj['emotions-sad'].src;
+        emotionPics[-2] = imageObj['emotions-cry'].src;
 
         mainState = mainStates.playing;
 
@@ -178,10 +195,12 @@ var mainlogic = (function(){
 
     function changeOutput(outputs) {
         console.warn('outputs', outputs);
+        document.getElementById('output').src = outputPics[ outputs[0] ];
     }
 
     function changeEmotion(emotions) {
         console.warn('emotions', emotions);
+        document.getElementById('emotion').src = emotionPics[ emotions[0] ];
     }
 
 
@@ -263,6 +282,8 @@ var mainlogic = (function(){
 
         // Preload all the images.
         imageObj = [];
+        imageObj['output-away'] = new Image();
+        imageObj['output-away'].src = 'pics/output/away.png';
         imageObj['output-back'] = new Image();
         imageObj['output-back'].src = 'pics/output/back.png';
         imageObj['output-eat'] = new Image();
