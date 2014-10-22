@@ -27,6 +27,8 @@ var mainlogic = (function(){
 
         initializeMenu();
 
+        initializeCallbacks();
+
         mainState = mainStates.playing;
 
     }
@@ -66,6 +68,7 @@ var mainlogic = (function(){
             pic: imageObj['feedbacks-good'].src,
             onrelease: function () {
                 console.warn('feedbacks-good');
+                myThink.feedback([1]);
             }
         });
         addMenuItem({
@@ -77,6 +80,7 @@ var mainlogic = (function(){
             pic: imageObj['feedbacks-bad'].src,
             onrelease: function () {
                 console.warn('feedbacks-bad');
+                myThink.feedback([-1]);
             }
         });
 
@@ -91,6 +95,7 @@ var mainlogic = (function(){
                     pic: imageObj['input-' + pos].src,
                     onrelease: function () {
                         console.warn('input', pos);
+                        myThink.input([pos]);
                     }
                 });
             })(i);
@@ -161,6 +166,22 @@ var mainlogic = (function(){
         menuContainer.addEventListener( 'touchend', menuContainerMouseUp, false );
 
         document.body.appendChild(menuContainer);
+    }
+
+    /**
+     * Initialize callbacks.
+     */
+    function initializeCallbacks() {
+        myThink.myOutput(changeOutput);
+        myThink.myEmotion(changeEmotion);
+    }
+
+    function changeOutput(outputs) {
+        console.warn('outputs', outputs);
+    }
+
+    function changeEmotion(emotions) {
+        console.warn('emotions', emotions);
     }
 
 
