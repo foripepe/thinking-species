@@ -189,8 +189,8 @@ var mainlogic = (function(){
      * Initialize callbacks.
      */
     function initializeCallbacks() {
-        myThink.myOutput(changeOutput);
-        myThink.myEmotion(changeEmotion);
+        myThink.myOutput(changeOutput, [7]);
+        myThink.myEmotion(changeEmotion, [2]);
     }
 
     function changeOutput(outputs) {

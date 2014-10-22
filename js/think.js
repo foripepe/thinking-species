@@ -10,12 +10,17 @@ var myThink = (function(){
     var outputCallback;
     var emotionCallback;
 
-    function myOutput(callback) {
+    var myOutputs;
+    var myEmotions;
+
+    function myOutput(callback, outputNum) {
         outputCallback = callback;
+        myOutputs = outputNum;
     }
 
-    function myEmotion(callback) {
+    function myEmotion(callback, emotionNum) {
         emotionCallback = callback;
+        myEmotions = emotionNum;
     }
 
     function feedback(myPainPleasures) {
