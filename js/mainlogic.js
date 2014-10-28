@@ -62,7 +62,7 @@ var mainlogic = (function(){
             height: 200,
             pic: imageObj['output-lie'].src,
             onrelease: function () {
-                console.warn('output');
+                //console.warn('output');
             }
         });
         addMenuItem({
@@ -73,7 +73,7 @@ var mainlogic = (function(){
             height: 50,
             pic: imageObj['emotions-neutral'].src,
             onrelease: function () {
-                console.warn('emotion');
+                //console.warn('emotion');
             }
         });
         addMenuItem({
@@ -84,7 +84,7 @@ var mainlogic = (function(){
             height: 50,
             pic: imageObj['feedbacks-good'].src,
             onrelease: function () {
-                console.warn('feedbacks-good');
+                //console.warn('feedbacks-good');
                 myThink.feedback([1]);
             }
         });
@@ -96,7 +96,7 @@ var mainlogic = (function(){
             height: 50,
             pic: imageObj['feedbacks-bad'].src,
             onrelease: function () {
-                console.warn('feedbacks-bad');
+                //console.warn('feedbacks-bad');
                 myThink.feedback([-1]);
             }
         });
@@ -111,7 +111,7 @@ var mainlogic = (function(){
                     height: 25,
                     pic: imageObj['input-' + pos].src,
                     onrelease: function () {
-                        console.warn('input', pos);
+                        //console.warn('input', pos);
                         myThink.input([pos]);
                     }
                 });
