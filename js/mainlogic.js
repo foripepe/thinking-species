@@ -30,8 +30,6 @@ var mainlogic = (function(){
 
         initializeMenu();
 
-        initializeCallbacks();
-
         outputPics[0] = imageObj['output-lie'].src;
         outputPics[1] = imageObj['output-away'].src;
         outputPics[2] = imageObj['output-back'].src;
@@ -46,9 +44,43 @@ var mainlogic = (function(){
         emotionPics[-1] = imageObj['emotions-sad'].src;
         emotionPics[-2] = imageObj['emotions-cry'].src;
 
+        initializeCallbacks();
+
         mainState = mainStates.playing;
 
     }
+
+    /**
+     * Initialize callbacks.
+     */
+    function initializeCallbacks() {
+        var outputVariations = [
+            outputPics.length
+        ];
+        myThink.myOutput(changeOutput, outputVariations);
+
+        var emotionVariations = [
+            Math.floor(emotionPics.length / 2)
+        ];
+        myThink.myEmotion(changeEmotion, emotionVariations);
+    }
+
+    /**
+     * Output callback
+     */
+    function changeOutput(outputs) {
+        console.warn('outputs', outputs);
+        document.getElementById('output').src = outputPics[ outputs[0] ];
+    }
+
+    /**
+     * Emotion callback
+     */
+    function changeEmotion(emotions) {
+        console.warn('emotions', emotions);
+        document.getElementById('emotion').src = emotionPics[ emotions[0] ];
+    }
+
 
     /**
      * Initialize menu.
@@ -183,24 +215,6 @@ var mainlogic = (function(){
         menuContainer.addEventListener( 'touchend', menuContainerMouseUp, false );
 
         document.body.appendChild(menuContainer);
-    }
-
-    /**
-     * Initialize callbacks.
-     */
-    function initializeCallbacks() {
-        myThink.myOutput(changeOutput, [7]);
-        myThink.myEmotion(changeEmotion, [2]);
-    }
-
-    function changeOutput(outputs) {
-        console.warn('outputs', outputs);
-        document.getElementById('output').src = outputPics[ outputs[0] ];
-    }
-
-    function changeEmotion(emotions) {
-        console.warn('emotions', emotions);
-        document.getElementById('emotion').src = emotionPics[ emotions[0] ];
     }
 
 

@@ -12,12 +12,13 @@ var myThink = (function(){
     var emotionCallback;
 
     // Mapping response for values
-    var myOutputs;
-    var myEmotions;
+    var outputVariations;
+    var emotionVariations;
 
     // Thinking loop in millisec
     var thinkingLoopTime = 100;
 
+    /*
     // Stores: inputs
     var listenerIntervals = [];
     var listenerIntervalTimer = 0;
@@ -33,32 +34,61 @@ var myThink = (function(){
         getFeedback: null,
         occurence: 0,
     };
+    */
 
+    /**
+     * Booting.
+     */
     function booting() {
         thinkingLoop();
     }
     booting();
 
+    /**
+     * Generating the responses in a loop.
+     */
     function thinkingLoop() {
         setInterval(function () {
             //console.warn('Thinking');
         }, thinkingLoopTime);
     }
 
+    /**
+     * Setup the output callback to environment.
+     *
+     * @param function callback
+     * @param number outputNum
+     */
     function myOutput(callback, outputNum) {
         outputCallback = callback;
-        myOutputs = outputNum;
+        outputVariations = outputNum;
     }
 
+    /**
+     * Setup the emotion callback to environment.
+     *
+     * @param function callback
+     * @param number emotionNum
+     */
     function myEmotion(callback, emotionNum) {
         emotionCallback = callback;
-        myEmotions = emotionNum;
+        emotionVariations = emotionNum;
     }
 
+    /**
+     * Feedback (good-bad) from environment.
+     *
+     * @param number myPainPleasures
+     */
     function feedback(myPainPleasures) {
         //emotionCallback(myPainPleasures);
     }
 
+    /**
+     * Input event from environment.
+     *
+     * @param number mySenses
+     */
     function input(mySenses) {
         //outputCallback(mySenses);
     }
