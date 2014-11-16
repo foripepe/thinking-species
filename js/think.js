@@ -15,15 +15,15 @@ var myThink = (function(){
     var myOutputs;
     var myEmotions;
 
+    // Thinking loop in millisec
+    var thinkingLoopTime = 100;
+
     // Stores: inputs
     var listenerIntervals = [];
     var listenerIntervalTimer = 0;
     var listenerIntervalMax = 8;
 
-    // Stores: inputs in two times
-    var feedbackIntervals = [];
-    var feedbackIntervalTimer = 0;
-    var feedbackIntervalMax = 8;
+    var feedbackLength = 8;
 
     // Stores:
     var memories = [];
@@ -42,7 +42,7 @@ var myThink = (function(){
     function thinkingLoop() {
         setInterval(function () {
             //console.warn('Thinking');
-        }, 100);
+        }, thinkingLoopTime);
     }
 
     function myOutput(callback, outputNum) {
