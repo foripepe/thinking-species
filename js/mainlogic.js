@@ -17,6 +17,8 @@ var mainlogic = (function(){
     var windowHalfY = window.innerHeight / 2;
     var xBiggerY = (windowHalfX > windowHalfY);
 
+    var emotionValue = {'good': 1, 'bad': -1};
+
     var outputPics = [];
     var emotionPics = [];
 
@@ -54,31 +56,33 @@ var mainlogic = (function(){
      * Initialize callbacks.
      */
     function initializeCallbacks() {
-        var outputVariations = [
-            outputPics.length
-        ];
-        myThink.myOutput(changeOutput, outputVariations);
+        var callback;
+        var outputVariations;
+        var emotionVariations;
 
-        var emotionVariations = [
-            Math.floor(emotionPics.length / 2)
-        ];
-        myThink.myEmotion(changeEmotion, emotionVariations);
+        outputVariations = outputPics.length;
+        callback = changeOutput;
+        myThink.myOutput(callback, outputVariations);
+
+        emotionVariations = Math.floor(emotionPics.length / 2);
+        callback = changeEmotion;
+        myThink.myEmotion(callback, emotionVariations);
     }
 
     /**
      * Output callback
      */
-    function changeOutput(outputs) {
-        console.warn('outputs', outputs);
-        document.getElementById('output').src = outputPics[ outputs[0] ];
+    function changeOutput(output) {
+        console.warn('outputs', output);
+        document.getElementById('output').src = outputPics[ output ];
     }
 
     /**
      * Emotion callback
      */
-    function changeEmotion(emotions) {
-        console.warn('emotions', emotions);
-        document.getElementById('emotion').src = emotionPics[ emotions[0] ];
+    function changeEmotion(emotion) {
+        console.warn('emotions', emotion);
+        document.getElementById('emotion').src = emotionPics[ emotion ];
     }
 
 
@@ -117,7 +121,7 @@ var mainlogic = (function(){
             pic: imageObj['feedbacks-good'].src,
             onrelease: function () {
                 //console.warn('feedbacks-good');
-                myThink.feedback([1]);
+                myThink.feedback( emotionValue.good );
             }
         });
         addMenuItem({
@@ -129,7 +133,7 @@ var mainlogic = (function(){
             pic: imageObj['feedbacks-bad'].src,
             onrelease: function () {
                 //console.warn('feedbacks-bad');
-                myThink.feedback([-1]);
+                myThink.feedback( emotionValue.bad );
             }
         });
 
@@ -144,7 +148,7 @@ var mainlogic = (function(){
                     pic: imageObj['input-' + pos].src,
                     onrelease: function () {
                         //console.warn('input', pos);
-                        myThink.input([pos]);
+                        myThink.input( pos );
                     }
                 });
             })(i);
