@@ -18,23 +18,28 @@ var myThink = (function(){
     // Thinking loop in millisec
     var thinkingLoopTime = 100;
 
-    /*
-    // Stores: inputs
-    var listenerIntervals = [];
-    var listenerIntervalTimer = 0;
-    var listenerIntervalMax = 8;
+    // Stores: memory fragments
+    var memoryFragments = [];
+    var memoryFragmentTimer = 0;
+    var memoryFragmentMax = 8;
+    // Current memory fragment
+    var memoryFragment = null;
 
-    var feedbackLength = 8;
-
-    // Stores:
+    // Stores: memories
     var memories = [];
+
+    // Feedback length in millisec
+    var feedbackLength = 20 * 1000;
+
+    // Stores: synapse
     var synapseStructure = {
         originalInput: null,
         newInput: null,
-        getFeedback: null,
+        goodFeedback: 0,
+        badFeedback: 0,
         occurence: 0,
+        time: null
     };
-    */
 
     /**
      * Booting.
