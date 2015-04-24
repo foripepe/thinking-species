@@ -18,28 +18,29 @@ var myThink = (function(){
     // Thinking loop in millisec
     var thinkingLoopTime = 100;
 
+    // Stores: synapse
+    function synapseStructure() {
+        this.firstInput = null;
+        this.secondInput = null;
+        this.goodFeedback = 0;
+        this.badFeedback = 0;
+        this.occurence = 0;
+        this.startTime = null;
+        this.completeTime = null;
+    };
+
     // Stores: memory fragments
     var memoryFragments = [];
     var memoryFragmentTimer = 0;
     var memoryFragmentMax = 8;
     // Current memory fragment
-    var memoryFragment = null;
+    var memoryFragment = new synapseStructure();
 
     // Stores: memories
     var memories = [];
 
     // Feedback length in millisec
     var feedbackLength = 20 * 1000;
-
-    // Stores: synapse
-    var synapseStructure = {
-        originalInput: null,
-        newInput: null,
-        goodFeedback: 0,
-        badFeedback: 0,
-        occurence: 0,
-        time: null
-    };
 
     /**
      * Booting.
@@ -50,12 +51,55 @@ var myThink = (function(){
     booting();
 
     /**
-     * Generating the responses in a loop.
+     * Thinking loop.
      */
     function thinkingLoop() {
         setInterval(function () {
-            //console.warn('Thinking');
+            thinkingProcess();
         }, thinkingLoopTime);
+    }
+
+    /**
+     * Storing the input and generating the response.
+     */
+    function thinkingProcess() {
+        // If there was any memor, then store it.
+        // @TODO: Later this restriction can be removed.
+        if (memoryFragment.firstInput) {
+            // Store memoryFragment.
+            storeMemoryFragment();
+        }
+
+        // Create output.
+        createOutput();
+
+        // New memory fragment.
+        memoryFragment = new synapseStructure();
+    }
+
+    /**
+     * Store the memory fragment.
+     */
+    function storeMemoryFragment() {
+        // Check if there was any similar event.
+
+        // If yes, use it.
+
+
+        // If not, store it.
+
+        // Enrich data.
+        memoryFragment.firstTime = Date.now();
+
+        // Memorize it.
+        memoryFragments.push( memoryFragment );
+    }
+
+    /**
+     * Create output.
+     */
+    function createOutput() {
+        // @TODO
     }
 
     /**
@@ -96,6 +140,15 @@ var myThink = (function(){
      */
     function input(mySenses) {
         //outputCallback(mySenses);
+    }
+
+    /**
+     * Polyfill
+     */
+    if (!Date.now) {
+        Date.now = function now() {
+            return new Date().getTime();
+        };
     }
 
     return {
