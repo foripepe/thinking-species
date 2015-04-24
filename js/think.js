@@ -22,6 +22,8 @@ var myThink = (function(){
     function synapseStructure() {
         this.firstInput = null;
         this.secondInput = null;
+        this.firstOutput = null;
+        this.secondOutput = null;
         this.goodFeedback = 0;
         this.badFeedback = 0;
         this.occurence = 0;
@@ -63,15 +65,11 @@ var myThink = (function(){
      * Storing the input and generating the response.
      */
     function thinkingProcess() {
-        // If there was any memor, then store it.
-        // @TODO: Later this restriction can be removed.
-        if (memoryFragment.firstInput) {
-            // Store memoryFragment.
-            storeMemoryFragment();
-        }
-
         // Create output.
         createOutput();
+
+        // Store memoryFragment.
+        storeMemoryFragment();
 
         // New memory fragment.
         memoryFragment = new synapseStructure();
