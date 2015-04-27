@@ -18,6 +18,11 @@ var myThink = (function(){
     // Thinking loop in millisec
     var thinkingLoopTime = 100;
 
+    // Collected input and output.
+    collectedInput = null;
+    collectedOutput = null;
+    collectedFeedback = null;
+
     // Stores: synapse
     function synapseStructure() {
         this.firstInput = null;
@@ -28,21 +33,30 @@ var myThink = (function(){
         this.badFeedback = 0;
         this.occurence = 0;
         this.startTime = null;
-        this.completeTime = null;
+        this.duration = null;
     };
 
-    // Stores: memory fragments
-    var memoryFragments = [];
-    var memoryFragmentTimer = 0;
-    var memoryFragmentMax = 8;
     // Current memory fragment
     var memoryFragment = new synapseStructure();
 
     // Stores: memories
     var memories = [];
 
+    // Stores: memory fragments
+    var memoryFragments = [];
+    // Stores: memory fragment parts storaged by this cycles
+    var memoryFragmentMax = 8;
+
     // Feedback length in millisec
     var feedbackLength = 20 * 1000;
+
+
+    var debugging = true;
+    function consoleLog( output ) {
+        if (debugging) {
+            console.log( output );
+        }
+    }
 
     /**
      * Booting.
@@ -71,22 +85,28 @@ var myThink = (function(){
         // Store memoryFragment.
         storeMemoryFragment();
 
-        // New memory fragment.
-        memoryFragment = new synapseStructure();
+        // Start new collection.
+        collectedInput = null;
+        collectedOutput = null;
     }
 
     /**
      * Store the memory fragment.
      */
     function storeMemoryFragment() {
-        // Check if there was any similar event.
+        // Current memory with or without input.
+        if (!collectedInput) {
+            return;
+        }
 
-        // If yes, use it.
+        consoleLog('Memorizing');
 
-
-        // If not, store it.
+        // New memory fragment.
+        memoryFragment = new synapseStructure();
 
         // Enrich data.
+        memoryFragment.firstInput = collectedInput;
+        memoryFragment.firstOutput = collectedOutput;
         memoryFragment.firstTime = Date.now();
 
         // Memorize it.
@@ -128,6 +148,7 @@ var myThink = (function(){
      * @param number myPainPleasures
      */
     function feedback(myPainPleasures) {
+        collectedFeedback = myPainPleasures;
         //emotionCallback(myPainPleasures);
     }
 
@@ -137,6 +158,7 @@ var myThink = (function(){
      * @param number mySenses
      */
     function input(mySenses) {
+        collectedInput = mySenses;
         //outputCallback(mySenses);
     }
 
