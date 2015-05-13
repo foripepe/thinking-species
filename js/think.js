@@ -135,9 +135,9 @@ var myThink = (function(){
                 memoryFragment.secondOutput === memory.secondOutput
             ) {
 
-                memoryFragment.goodFeedback =+ memory.goodFeedback;
-                memoryFragment.badFeedback =+ memory.badFeedback;
-                memoryFragment.occurence =+ memory.occurence;
+                memoryFragment.goodFeedback += memory.goodFeedback;
+                memoryFragment.badFeedback += memory.badFeedback;
+                memoryFragment.occurence += memory.occurence;
 
                 memoryFragments.splice(i--, 1);
 
@@ -211,9 +211,9 @@ var myThink = (function(){
                 memoryFragment.secondOutput === memory.secondOutput
             ) {
 
-                memoryFragment.goodFeedback =+ memory.goodFeedback;
-                memoryFragment.badFeedback =+ memory.badFeedback;
-                memoryFragment.occurence =+ memory.occurence;
+                memoryFragment.goodFeedback += memory.goodFeedback;
+                memoryFragment.badFeedback += memory.badFeedback;
+                memoryFragment.occurence += memory.occurence;
 
                 memories.splice(i--, 1);
 
