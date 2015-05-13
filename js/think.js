@@ -16,13 +16,13 @@ var myThink = (function(){
     var emotionVariations;
 
     // Thinking loop in millisec
-    var thinkingLoopTime = 100;
+    var thinkingLoopTime = 10000;
     var thinkingLoopId = null;
 
     // Collected input and output.
     collectedInput = null;
     collectedOutput = null;
-    collectedFeedback = null;
+    collectedFeedback = 0;
 
     // Stores: synapse
     function synapseStructure() {
@@ -47,10 +47,10 @@ var myThink = (function(){
     var memoryFragments = [];
 
     // Fragment length is millisec
-    var fragmentLength = 20 * 1000;
+    var fragmentLength = 20 * 100000;
 
     // Feedback length in millisec
-    var feedbackLength = 20 * 1000;
+    var feedbackLength = 20 * 100000;
 
 
     var debugging = true;
@@ -93,7 +93,7 @@ var myThink = (function(){
         // Start new collection.
         collectedInput = null;
         collectedOutput = null;
-        collectedFeedback = null;
+        collectedFeedback = 0;
     }
 
     /**
@@ -108,8 +108,43 @@ var myThink = (function(){
         memoryFragment.firstOutput = collectedOutput;
         memoryFragment.firstTime = Date.now();
 
+        compactMemoryFragments( memoryFragment );
+
         // Memorize it.
         memoryFragments.push( memoryFragment );
+    }
+
+    /**
+     * Compacting memoryFragments.
+     *
+     * @param synapseStructure memoryFragment
+     *
+     * @return synapseStructure memoryFragment
+     */
+    function compactMemoryFragments( memoryFragment ) {
+        var memory;
+
+        for (var i = memoryFragments.length - 1; i >= 0; --i) {
+            memory = memoryFragments[i];
+
+            if (
+                memoryFragment.firstInput === memory.firstInput &&
+                memoryFragment.firstOutput === memory.firstOutput &&
+                memoryFragment.secondInput === memory.secondInput &&
+                memoryFragment.secondOutput === memory.secondOutput
+            ) {
+
+                memoryFragment.goodFeedback =+ memory.goodFeedback;
+                memoryFragment.badFeedback =+ memory.badFeedback;
+                memoryFragment.occurence =+ memory.occurence;
+
+                memoryFragments.splice(i--, 1);
+
+                break;
+            }
+        }
+
+        return memoryFragment;
     }
 
     /**
@@ -137,20 +172,20 @@ var myThink = (function(){
             memoryFragment.secondOutput = collectedOutput;
             memoryFragment.secondTime = timeNow;
 
-            memoryFragment = compactMemory( memoryFragment );
+            memoryFragment = compactMemories( memoryFragment );
 
             memories.push( memoryFragment );
         }
     }
 
     /**
-     * Store the feedback.
+     * Compacting memories.
      *
      * @param synapseStructure memoryFragment
      *
      * @return synapseStructure memoryFragment
      */
-    function compactMemory( memoryFragment ) {
+    function compactMemories( memoryFragment ) {
         var memory;
 
         for (var i = memories.length - 1; i >= 0; --i) {
@@ -167,9 +202,9 @@ var myThink = (function(){
                 memoryFragment.badFeedback =+ memory.badFeedback;
                 memoryFragment.occurence =+ memory.occurence;
 
-                break;
+                memories.splice(i--, 1);
 
-                memory.splice(i--, 1);
+                break;
             }
         }
 
