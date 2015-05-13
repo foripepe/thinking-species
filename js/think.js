@@ -82,13 +82,13 @@ var myThink = (function(){
      */
     function thinkingProcess() {
 
+        createOutput();
+
         storeFeedback();
 
         storeMemory();
 
         storeMemoryFragment();
-
-        createOutput();
 
         // Start new collection.
         collectedInput = null;
