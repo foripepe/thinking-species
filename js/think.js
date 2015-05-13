@@ -16,7 +16,7 @@ var myThink = (function(){
     var emotionVariations;
 
     // Thinking loop in millisec
-    var thinkingLoopTime = 10000;
+    var thinkingLoopTime = 1000;
     var thinkingLoopId = null;
 
     // Collected input and output.
@@ -47,10 +47,10 @@ var myThink = (function(){
     var memoryFragments = [];
 
     // Fragment length is millisec
-    var fragmentLength = 20 * 100000;
+    var fragmentLength = 20 * 10000;
 
     // Feedback length in millisec
-    var feedbackLength = 20 * 100000;
+    var feedbackLength = 20 * 10000;
 
 
     var debugging = true;
@@ -81,6 +81,7 @@ var myThink = (function(){
      * Storing the input and generating the response.
      */
     function thinkingProcess() {
+        console.log(memories, memoryFragments);
 
         createOutput();
 
@@ -152,6 +153,8 @@ var myThink = (function(){
      */
     function storeMemory() {
         var memoryFragment;
+        var memory;
+
         var timeNow = Date.now();
         var oldTime = timeNow - fragmentLength;
 
@@ -168,13 +171,23 @@ var myThink = (function(){
 
             // Store memory.
 
-            memoryFragment.secondInput = collectedInput;
-            memoryFragment.secondOutput = collectedOutput;
-            memoryFragment.secondTime = timeNow;
+            memory = new synapseStructure();
 
-            memoryFragment = compactMemories( memoryFragment );
+            memory.firstInput = memoryFragment.firstInput;
+            memory.firstOutput = memoryFragment.firstOutput;
+            memory.firstTime = memoryFragment.firstTime;
 
-            memories.push( memoryFragment );
+            memory.goodFeedback = memoryFragment.goodFeedback;
+            memory.badFeedback = memoryFragment.badFeedback;
+            memory.occurence = memoryFragment.occurence;
+
+            memory.secondInput = collectedInput;
+            memory.secondOutput = collectedOutput;
+            memory.secondTime = timeNow;
+
+            memory = compactMemories( memory );
+
+            memories.push( memory );
         }
     }
 
