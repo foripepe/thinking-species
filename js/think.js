@@ -49,9 +49,6 @@ var myThink = (function(){
     // Feedback length in millisec
     var feedbackLength = 20 * 1000;
 
-    // Forget length in millisec
-    var forgetLength = 1000000000000 * 365 * 24 * 60 * 60 * 1000;
-
 
     var debugging = true;
     function consoleLog( output ) {
@@ -83,15 +80,11 @@ var myThink = (function(){
     function thinkingProcess() {
         storeMemoryFragment();
 
-        //createOutput();
+        createOutput();
 
         storeMemory();
 
         storeFeedback();
-
-        //compactMemory();
-
-        //cleanMemory();
 
         // Start new collection.
         collectedInput = null;
@@ -153,30 +146,8 @@ var myThink = (function(){
 
         for (var i = memories.length - 1; i >= 0; --i) {
             // @TODO
-        }
-    }
-
-    /**
-     * Clean memory.
-     */
-    function cleanMemory() {
-        var memory;
-        var timeNow = Date.now();
-        var oldTime = timeNow - forgetLength;
-
-        for (var i = 0; i < memories.length; ++i) {
-            memory = memories[i];
-
-            // Remove old memory fragments.
-            if (memory.firstTime + memory.duration < oldTime) {
-                memoryFragments.splice(i, 1);
-                // Fix the index.
-                i--;
-            }
-            else {
-                break;
-            }
-
+            // store feedback
+            // compact memory
         }
     }
 
