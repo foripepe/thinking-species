@@ -81,13 +81,14 @@ var myThink = (function(){
      * Storing the input and generating the response.
      */
     function thinkingProcess() {
-        storeMemoryFragment();
 
-        createOutput();
+        storeFeedback();
 
         storeMemory();
 
-        storeFeedback();
+        storeMemoryFragment();
+
+        createOutput();
 
         // Start new collection.
         collectedInput = null;
@@ -124,9 +125,7 @@ var myThink = (function(){
 
             // Remove old memory fragments.
             if (memoryFragment.firstTime < oldTime) {
-                memoryFragments.splice(i, 1);
-                // Fix the index.
-                i--;
+                memoryFragments.splice(i--, 1);
 
                 continue;
             }
@@ -169,6 +168,8 @@ var myThink = (function(){
                 memoryFragment.occurence =+ memory.occurence;
 
                 break;
+
+                memory.splice(i--, 1);
             }
         }
 
