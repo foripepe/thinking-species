@@ -37,7 +37,7 @@ var myThink = (function(){
         this.goodFeedback = 0;
         this.badFeedback = 0;
 
-        this.occurence = 0;
+        this.occurence = 1;
     };
 
     // Stores: memories
@@ -138,8 +138,41 @@ var myThink = (function(){
             memoryFragment.secondOutput = collectedOutput;
             memoryFragment.secondTime = timeNow;
 
+            memoryFragment = compactMemory( memoryFragment );
+
             memories.push( memoryFragment );
         }
+    }
+
+    /**
+     * Store the feedback.
+     *
+     * @param synapseStructure memoryFragment
+     *
+     * @return synapseStructure memoryFragment
+     */
+    function compactMemory( memoryFragment ) {
+        var memory;
+
+        for (var i = memories.length - 1; i >= 0; --i) {
+            memory = memories[i];
+
+            if (
+                memoryFragment.firstInput === memory.firstInput &&
+                memoryFragment.firstOutput === memory.firstOutput &&
+                memoryFragment.secondInput === memory.secondInput &&
+                memoryFragment.secondOutput === memory.secondOutput
+            ) {
+
+                memoryFragment.goodFeedback =+ memory.goodFeedback;
+                memoryFragment.badFeedback =+ memory.badFeedback;
+                memoryFragment.occurence =+ memory.occurence;
+
+                break;
+            }
+        }
+
+        return memoryFragment;
     }
 
     /**
