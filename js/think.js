@@ -47,10 +47,10 @@ var myThink = (function(){
     var memoryFragments = [];
 
     // Fragment length is millisec
-    var fragmentLength = 20 * 10000;
+    var fragmentLength = 20 * 1000;
 
     // Feedback length in millisec
-    var feedbackLength = 20 * 10000;
+    var feedbackLength = 20 * 1000;
 
 
     var debugging = true;
