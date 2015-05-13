@@ -46,7 +46,7 @@ var myThink = (function(){
     // Stores: memory fragments
     var memoryFragments = [];
 
-    // Fragment length is millisec
+    // Fragment length in millisec
     var fragmentLength = 20 * 1000;
 
     // Feedback length in millisec
@@ -230,7 +230,7 @@ var myThink = (function(){
     function storeFeedback() {
         var memory;
         var timeNow = Date.now();
-        var oldTime = timeNow - fragmentLength;
+        var oldTime = timeNow - feedbackLength;
 
         for (var i = memories.length - 1; i >= 0; --i) {
             memory = memories[i];
