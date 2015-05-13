@@ -27,14 +27,17 @@ var myThink = (function(){
     // Stores: synapse
     function synapseStructure() {
         this.firstInput = null;
-        this.secondInput = null;
         this.firstOutput = null;
+        this.firstTime = null;
+
+        this.secondInput = null;
         this.secondOutput = null;
+        this.secondTime = null;
+
         this.goodFeedback = 0;
         this.badFeedback = 0;
+
         this.occurence = 0;
-        this.startTime = null;
-        this.duration = null;
     };
 
     // Stores: memories
@@ -102,7 +105,7 @@ var myThink = (function(){
         // Enrich data.
         memoryFragment.firstInput = collectedInput;
         memoryFragment.firstOutput = collectedOutput;
-        memoryFragment.startTime = Date.now();
+        memoryFragment.firstTime = Date.now();
 
         // Memorize it.
         memoryFragments.push( memoryFragment );
@@ -128,9 +131,12 @@ var myThink = (function(){
                 continue;
             }
 
+
+            // Store memory.
+
             memoryFragment.secondInput = collectedInput;
             memoryFragment.secondOutput = collectedOutput;
-            memoryFragment.duration = timeNow - memoryFragment.firstTime;
+            memoryFragment.secondTime = timeNow;
 
             memories.push( memoryFragment );
         }
@@ -145,9 +151,20 @@ var myThink = (function(){
         var oldTime = timeNow - fragmentLength;
 
         for (var i = memories.length - 1; i >= 0; --i) {
-            // @TODO
-            // store feedback
-            // compact memory
+            memory = memories[i];
+
+            if (memory.secondTime >= oldTime) {
+                // Store feedback.
+                if (collectedFeedback >= 0) {
+                    memory.goodFeedback += collectedFeedback;
+                }
+                else {
+                    memory.badFeedback += collectedFeedback;
+                }
+            }
+            else {
+                break;
+            }
         }
     }
 
