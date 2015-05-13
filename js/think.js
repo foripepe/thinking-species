@@ -17,6 +17,7 @@ var myThink = (function(){
 
     // Thinking loop in millisec
     var thinkingLoopTime = 100;
+    var thinkingLoopId = null;
 
     // Collected input and output.
     collectedInput = null;
@@ -36,16 +37,14 @@ var myThink = (function(){
         this.duration = null;
     };
 
-    // Current memory fragment
-    var memoryFragment = new synapseStructure();
-
     // Stores: memories
     var memories = [];
 
     // Stores: memory fragments
     var memoryFragments = [];
-    // Stores: memory fragment parts storaged by this cycles
-    var memoryFragmentMax = 8;
+
+    // Fragment length is millisec
+    var fragmentLength = 20 * 1000;
 
     // Feedback length in millisec
     var feedbackLength = 20 * 1000;
@@ -70,7 +69,7 @@ var myThink = (function(){
      * Thinking loop.
      */
     function thinkingLoop() {
-        setInterval(function () {
+        thinkingLoopId = setInterval(function () {
             thinkingProcess();
         }, thinkingLoopTime);
     }
@@ -79,38 +78,59 @@ var myThink = (function(){
      * Storing the input and generating the response.
      */
     function thinkingProcess() {
-        // Create output.
-        createOutput();
-
-        // Store memoryFragment.
         storeMemoryFragment();
+
+        //createOutput();
+
+        storeMemory();
 
         // Start new collection.
         collectedInput = null;
         collectedOutput = null;
+        collectedFeedback = null;
     }
 
     /**
      * Store the memory fragment.
      */
     function storeMemoryFragment() {
-        // Current memory with or without input.
-        if (!collectedInput) {
-            return;
-        }
-
-        consoleLog('Memorizing');
-
         // New memory fragment.
-        memoryFragment = new synapseStructure();
+        var memoryFragment = new synapseStructure();
 
         // Enrich data.
         memoryFragment.firstInput = collectedInput;
         memoryFragment.firstOutput = collectedOutput;
-        memoryFragment.firstTime = Date.now();
+        memoryFragment.startTime = Date.now();
 
         // Memorize it.
         memoryFragments.push( memoryFragment );
+    }
+
+    /**
+     * Store the memory.
+     */
+    function storeMemory() {
+        var memoryFragment;
+        var timeNow = Date.now();
+
+        for (var i = 0; i < memoryFragments.length; ++i) {
+            memoryFragment = memoryFragments[i];
+
+            // Remove old memory fragments.
+            if (memoryFragment.firstTime > timeNow + fragmentLength) {
+                memoryFragments.splice(i, 1);
+                // Fix the index.
+                i--;
+
+                continue;
+            }
+
+            memoryFragment.secondInput = collectedInput;
+            memoryFragment.secondOutput = collectedOutput;
+            memoryFragment.duration = timeNow - memoryFragment.firstTime;
+
+            memories.push( memoryFragment );
+        }
     }
 
     /**
